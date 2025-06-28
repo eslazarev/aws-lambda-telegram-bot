@@ -41,6 +41,12 @@ class Document(BaseModel):
     file_name: Optional[str] = None
 
 
+class ChatMemberStatus(BaseModel):
+    user: User
+    status: str
+    until_date: Optional[int] = None
+
+
 class Message(BaseModel):
     message_id: int
     from_: User = Field(..., alias="from")
@@ -51,12 +57,6 @@ class Message(BaseModel):
     media_group_id: Optional[str] = None
     photo: Optional[List[Photo]] = None
     document: Optional[Document] = None
-
-
-class ChatMemberStatus(BaseModel):
-    user: User
-    status: str
-    until_date: Optional[int] = None
 
 
 class MyChatMember(BaseModel):
