@@ -160,13 +160,15 @@ async def telegram_dispatcher(telegram_request: TelegramRequest) -> None:
         return
 
     # Handle other commands or messages
-    logger.info(f"Received message from user {telegram_request.message.from_.id}: {telegram_request.message.text}")
-    await send_message(
-        chat_id=telegram_request.message.chat.id,
-        text=f"I received your message.\nBut I don't know how to respond yet.",
-        reply_to_message_id=telegram_request.message.message_id,
-    )
-    return
+    if telegram_request.message.text:
+        logger.info(f"Received message from user {telegram_request.message.from_.id}: {telegram_request.message.text}")
+        await send_message(
+            chat_id=telegram_request.message.chat.id,
+            text=f"I received your message.\nBut I don't know how to respond yet.",
+            reply_to_message_id=telegram_request.message.message_id,
+        )
+        return
+
 ```
 
 
