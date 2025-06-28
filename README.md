@@ -72,7 +72,7 @@ src/
 ```
 
 ## Telegram Request Model
-There is a single model[single model](src/models/telegram_request.py) for all Telegram requests, which is fully typed with Pydantic v2. It includes all possible fields that Telegram can send, so you can easily access any data in your bot logic.
+There is a [single model](src/models/telegram_request.py) for all Telegram requests, which is typed with Pydantic v2. It includes fields that Telegram can send, so you can easily access any data in your bot logic.
 ```python
 # part of src/models/telegram_request.py
 class Message(BaseModel):
@@ -127,7 +127,7 @@ export TELEGRAM_TOKEN=8197297946:AAHVUKxdVq1b15O9-JJ2Xp6SyWVopbLdL5s
 ```
 
 ## Check AWS credentials
-https://docs.aws.amazon.com/cli/v1/userguide/cli-configure-files.html
+[https://docs.aws.amazon.com/cli/v1/userguide/cli-configure-files.html](https://docs.aws.amazon.com/cli/v1/userguide/cli-configure-files.html)
 
 ## Clone the repository
 ```bash
@@ -188,7 +188,7 @@ npm install
 pip install -r requirements-local.txt
 ```
 ### Install ngrok for local development
-https://ngrok.com/downloads
+(https://ngrok.com/downloads)[https://ngrok.com/downloads]
 
 
 ## Local Development
