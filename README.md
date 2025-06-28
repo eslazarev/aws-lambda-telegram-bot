@@ -111,10 +111,14 @@ class TelegramRequest(BaseModel):
 
 1. Open Telegram
 2. Search for [@BotFather](https://t.me/BotFather)
+
 ![bot_father.png](.github/images/bot_father.png)
+
 3. Send the command `start` and `/newbot` and follow the instructions
-4. Once your bot is created, BotFather will give you a token. It looks like:
+4. Once your bot is created, BotFather will give you a token.
+
 ![new_bot.png](.github/images/new_bot.png)
+
 5. Save this token to your local environment so the bot can use it.
 
 ### 🔧 Save `TELEGRAM_TOKEN` to environment for further use
@@ -133,6 +137,38 @@ cd aws-lambda-telegram-bot
 
 ## Implement your bot logic
 Edit the [dispatcher.py](src/app/dispatcher.py) file to implement your bot's business logic. This is where you handle incoming messages and commands.
+```python
+
+from src.infrastructure.telegram.telegram_api import send_message
+from src.models.telegram_request import TelegramRequest
+from loguru import logger
+
+
+async def telegram_dispatcher(telegram_request: TelegramRequest) -> None:
+    """
+    Dispatcher for handling Telegram requests.
+        :param telegram_request: TelegramRequest
+        :return: None
+    """
+    if telegram_request.message.text == "/start":
+        logger.info(f"Received /start command from user {telegram_request.message.from_.id}")
+        await send_message(
+            chat_id=telegram_request.message.chat.id,
+            text="Welcome to the bot! How can I assist you today?",
+            reply_to_message_id=telegram_request.message.message_id,
+        )
+        return
+
+    # Handle other commands or messages
+    logger.info(f"Received message from user {telegram_request.message.from_.id}: {telegram_request.message.text}")
+    await send_message(
+        chat_id=telegram_request.message.chat.id,
+        text=f"I received your message.\nBut I don't know how to respond yet.",
+        reply_to_message_id=telegram_request.message.message_id,
+    )
+    return
+```
+
 
 ## Install dependencies
 
