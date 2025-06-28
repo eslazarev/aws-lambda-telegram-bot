@@ -1,0 +1,44 @@
+service: aws-lambda-telegram-bot
+
+
+provider:
+  name: aws
+  runtime: python3.12
+  versionFunctions: false
+  logRetentionInDays: 14
+  environment:
+    TELEGRAM_TOKEN: ${param:TELEGRAM_TOKEN}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+         - logs:CreateLogStream
+         - logs:CreateLogGroup
+         - logs:PutLogEvents
+      Resource: "*"
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    slim: true
+
+package:
+  patterns:
+    - '!**'
+    - 'src/**'
+
+functions:
+  bot-endpoint:
+    handler: src/entry_point_fastapi_app.handler
+    events:
+      - http:
+          path: /
+          method: post
+    memorySize: 512
+    timeout: 28
+#    versionFunctions: false
+#    snapStart: true
+
+
+plugins:
+  - serverless-python-requirements
