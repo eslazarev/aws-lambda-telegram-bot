@@ -4,7 +4,7 @@ service: aws-lambda-telegram-bot
 provider:
   name: aws
   runtime: python3.12
-  versionFunctions: false
+  versionFunctions: true
   logRetentionInDays: 14
   environment:
     TELEGRAM_TOKEN: ${param:TELEGRAM_TOKEN}
@@ -36,8 +36,7 @@ functions:
           method: post
     memorySize: 512
     timeout: 28
-#    versionFunctions: false
-#    snapStart: true
+    snapStart: true
 
 
 plugins:
